@@ -1,4 +1,10 @@
+    9  aptitude install git
+   10  git clone https://github.com/chasemp/settings
+
+
+
 puppet apply --modulepath=modules $@ manifests/site.pp
+
 
 new znc and cmdnotify
 

@@ -1,6 +1,6 @@
 class common {
     package {
-        ['tree', 'ufw', 'nmap', 'chkconfig']:
+        ['tree', 'ufw', 'nmap', 'chkconfig', 'ntp']:
             ensure => present,
     }
 
