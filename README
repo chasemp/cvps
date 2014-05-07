@@ -1,0 +1,59 @@
+puppet apply --modulepath=modules $@ manifests/site.pp
+
+new znc and cmdnotify
+
+  364  mkdir ZNC_BUILD
+  365  cd ZNC_BUILD/
+  366  wget http://znc.in/releases/znc-1.2.tar.gz
+  367  aptitude install build-essential
+  370  aptitude install libperl-dev
+  371  aptitude install libpython-dev
+  372  aptitude install libssl-dev
+  374  tar zxfv znc-1.2.tar.gz
+  375  cd znc-1.2/
+  376  ls -al /home/znc/
+  377  cp -R  /home/znc/ archive
+  378  tree archive/
+  379  rm -f R archive/
+  380  cp -R /home/znc/.znc/ archive/
+  381  tree archive/
+  382  cp /home/znc/.znc/configs/znc.conf .
+  383  mv znc.conf ..
+  394  aptitude install pkg-config
+  398  ./configure
+  399  make
+  405  make install
+  407  /usr/local/bin/znc --makeconf
+
+
+
+  421  sudo aptitude install znc-dev
+  422  cd ZNC_BUILD/
+  423  git clone https://github.com/bgirard/znc-cmd-notify.git
+  424  cd znc-
+  425  cd znc-cmd-notify/
+  426  which znc-buildmod
+  427  /usr/local/bin/znc-buildmod cmdnotify.cpp
+  428  bash /root/runznc
+  429  cp cmdnotify.so /home/znc/.znc/modules/
+  430  ls -al /home/znc/.znc/modules/
+  431  chown znc:znc /home/znc/.znc/modules/cmdnotify.so
+  432  chmod +x  /etc/znc_notify.sh
+
+
+exim:
+
+  449  apt-get install exim4-daemon-light mailutils
+  450  dpkg-reconfigure exim4-config
+  451  echo 'foo' | mail -s 'notify' cpettet@wikimedia.org
+
+
+# CMD_NOTIFY NOTES
+
+/msg *cmdnotify
+
+  set client_count_less_than 0
+  set highlight chasemp
+  set last_active 0
+  set last_notification 0
+  set away_only no
